@@ -1,26 +1,49 @@
 import styles from "./ChooseLength.module.css";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-export default function ChooseLength() {
+export default function ChooseLength({
+  breakLength,
+  sessionLength,
+  handleIncreaseBreak,
+  handleDecreaseBreak,
+  handleIncreaseSession,
+  handleDecreaseSession,
+}) {
   return (
     <div className={styles.Wrapper}>
       <div className={styles.ChooseLength}>
         <h2 className={styles.ChooseLengthName}>Break length</h2>
         <div className={styles.ChooseLengthContent}>
-          <span>5</span>
+          <span>{breakLength}</span>
           <div className={styles.Icons}>
-            <FiChevronUp className={styles.Icon} size={35} />
-            <FiChevronDown className={styles.Icon} size={35} />
+            <FiChevronUp
+              onClick={handleIncreaseBreak}
+              className={styles.Icon}
+              size={35}
+            />
+            <FiChevronDown
+              onClick={handleDecreaseBreak}
+              className={styles.Icon}
+              size={35}
+            />
           </div>
         </div>
       </div>
       <div className={styles.ChooseLength}>
         <h2 className={styles.ChooseLengthName}>Session length</h2>
         <div className={styles.ChooseLengthContent}>
-          <span>25</span>
+          <span>{sessionLength}</span>
           <div className={styles.Icons}>
-            <FiChevronUp className={styles.Icon} size={35} />
-            <FiChevronDown className={styles.Icon} size={35} />
+            <FiChevronUp
+              onClick={handleIncreaseSession}
+              className={styles.Icon}
+              size={35}
+            />
+            <FiChevronDown
+              onClick={handleDecreaseSession}
+              className={styles.Icon}
+              size={35}
+            />
           </div>
         </div>
       </div>
