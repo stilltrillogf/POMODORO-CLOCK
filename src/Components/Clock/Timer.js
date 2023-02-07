@@ -9,9 +9,10 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeLocal((prevTime) => prevTime - 1000);
-      if (timeLocal === 1000) {
-        console.log("d");
+      setTimeLocal((prevTime) => prevTime - 1);
+      if (timeLocal === 0) {
+        // TODO: Here play alarm sound
+        console.log(`${type === "Session" ? "Break time" : "Session time"}`);
         setCurrentType(type === "Session" ? "Break" : "Session");
         setTimeLocal(type === "Session" ? breakLength : sessionLength);
       }
@@ -20,7 +21,7 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
     return () => {
       clearInterval(intervalId);
     };
-  }, [timeLocal, setCurrentType, type]);
+  }, [timeLocal, setCurrentType, type, breakLength, sessionLength]);
 
-  return <div className={styles.Timer}>Timer: {timeLocal}</div>;
+  return <div className={styles.Timer}>{timeLocal}</div>;
 }
