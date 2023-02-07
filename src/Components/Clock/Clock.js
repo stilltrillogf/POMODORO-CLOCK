@@ -9,6 +9,11 @@ export default function Clock({
   setIsRunning,
 }) {
   const { sessionLength, breakLength } = time;
+  const timeFormatted = new Date(
+    1000 * (type === "Session" ? sessionLength : breakLength)
+  )
+    .toISOString()
+    .substring(14, 19);
   return (
     <div className={styles.ClockBorder}>
       <div className={styles.Clock}>
@@ -21,9 +26,7 @@ export default function Clock({
             setIsRunning={setIsRunning}
           />
         ) : (
-          <div className={styles.Timer}>
-            {type === "Session" ? sessionLength : breakLength}
-          </div>
+          <div className={styles.Timer}>{timeFormatted}</div>
         )}
       </div>
     </div>

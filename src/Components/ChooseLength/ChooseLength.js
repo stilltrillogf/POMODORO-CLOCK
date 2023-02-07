@@ -14,7 +14,7 @@ export default function ChooseLength({
       <div className={styles.ChooseLength}>
         <h2 className={styles.ChooseLengthName}>Break length</h2>
         <div className={styles.ChooseLengthContent}>
-          <span>{breakLength}</span>
+          <span>{breakLength / 60}</span>
           <div className={styles.Icons}>
             <FiChevronUp
               onClick={handleIncreaseBreak}
@@ -32,7 +32,7 @@ export default function ChooseLength({
       <div className={styles.ChooseLength}>
         <h2 className={styles.ChooseLengthName}>Session length</h2>
         <div className={styles.ChooseLengthContent}>
-          <span>{sessionLength}</span>
+          <span>{sessionLength / 60}</span>
           <div className={styles.Icons}>
             <FiChevronUp
               onClick={handleIncreaseSession}

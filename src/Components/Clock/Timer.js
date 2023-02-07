@@ -7,6 +7,10 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
     type === "Session" ? sessionLength : breakLength
   );
 
+  const timeFormatted = new Date(1000 * timeLocal)
+    .toISOString()
+    .substring(14, 19);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimeLocal((prevTime) => prevTime - 1);
@@ -23,5 +27,5 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
     };
   }, [timeLocal, setCurrentType, type, breakLength, sessionLength]);
 
-  return <div className={styles.Timer}>{timeLocal}</div>;
+  return <div className={styles.Timer}>{timeFormatted}</div>;
 }

@@ -6,29 +6,29 @@ import { useState } from "react";
 
 function ClockApp() {
   // Length in seconds
-  const [breakLength, setBreakLength] = useState(3);
-  const [sessionLength, setSessionLength] = useState(10);
+  const [breakLength, setBreakLength] = useState(60);
+  const [sessionLength, setSessionLength] = useState(300);
   const [currentType, setCurrentType] = useState("Session");
   const [timerIsRunning, setTimerIsRunning] = useState(false);
 
   // TODO: refactor into context+reducer
   const handleIncreaseBreak = () => {
     if (timerIsRunning) return;
-    setBreakLength(breakLength + 1);
+    setBreakLength(breakLength + 60);
   };
   const handleDecreaseBreak = () => {
     if (timerIsRunning) return;
-    if (breakLength === 1) return;
-    setBreakLength(breakLength - 1);
+    if (breakLength / 60 === 1) return;
+    setBreakLength(breakLength - 60);
   };
   const handleIncreaseSession = () => {
     if (timerIsRunning) return;
-    setSessionLength(sessionLength + 1);
+    setSessionLength(sessionLength + 60);
   };
   const handleDecreaseSession = () => {
     if (timerIsRunning) return;
-    if (sessionLength === 1) return;
-    setSessionLength(sessionLength - 1);
+    if (sessionLength / 60 === 1) return;
+    setSessionLength(sessionLength - 60);
   };
 
   const handleTimerPlay = function () {
