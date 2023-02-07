@@ -5,22 +5,36 @@ import Buttons from "./Components/Buttons/Buttons";
 import { useState } from "react";
 
 function ClockApp() {
-  const [breakLength, setBreakLength] = useState(5);
-  const [sessionLength, setSessionLength] = useState(25);
+  // Length in miliseconds
+  const [breakLength, setBreakLength] = useState(10000);
+  const [sessionLength, setSessionLength] = useState(10000);
+  const [currentType, setCurrentType] = useState("Session");
+  const [timerIsRunning, setTimerIsRunning] = useState(false);
 
   // TODO: refactor into context+reducer
   const handleIncreaseBreak = () => {
-    setBreakLength(breakLength + 1);
+    setBreakLength(breakLength + 1000);
   };
   const handleDecreaseBreak = () => {
-    setBreakLength(breakLength - 1);
+    if (breakLength === 1) return;
+    setBreakLength(breakLength - 1000);
   };
   const handleIncreaseSession = () => {
-    setSessionLength(sessionLength + 1);
+    setSessionLength(sessionLength + 1000);
   };
   const handleDecreaseSession = () => {
-    setSessionLength(sessionLength - 1);
+    if (sessionLength === 1) return;
+    setSessionLength(sessionLength - 1000);
   };
+
+  const handleTimerPlay = function () {
+    setTimerIsRunning(true);
+  };
+
+  const handleTimerPause = function () {
+    setTimerIsRunning(false);
+  };
+  const handleTimerReset = function () {};
 
   return (
     <div className={styles.ClockApp}>
@@ -33,8 +47,17 @@ function ClockApp() {
         breakLength={breakLength}
         sessionLength={sessionLength}
       />
-      <Clock />
-      <Buttons />
+      <Clock
+        type={currentType}
+        time={currentType === "Session" ? sessionLength : breakLength}
+        isRunning={timerIsRunning}
+        setIsRunning={setTimerIsRunning}
+      />
+      <Buttons
+        onPlay={handleTimerPlay}
+        onPause={handleTimerPause}
+        onReset={handleTimerReset}
+      />
     </div>
   );
 }
