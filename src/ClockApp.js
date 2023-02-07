@@ -30,11 +30,12 @@ function ClockApp() {
   const handleTimerPlay = function () {
     setTimerIsRunning(true);
   };
-
   const handleTimerPause = function () {
+    // TODO: Probably need to pass this function to timer and then implement logic there
+  };
+  const handleTimerReset = function () {
     setTimerIsRunning(false);
   };
-  const handleTimerReset = function () {};
 
   return (
     <div className={styles.ClockApp}>
@@ -49,7 +50,8 @@ function ClockApp() {
       />
       <Clock
         type={currentType}
-        time={currentType === "Session" ? sessionLength : breakLength}
+        setCurrentType={setCurrentType}
+        time={{ sessionLength: sessionLength, breakLength: breakLength }}
         isRunning={timerIsRunning}
         setIsRunning={setTimerIsRunning}
       />
