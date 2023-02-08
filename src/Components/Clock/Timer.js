@@ -1,7 +1,13 @@
 import styles from "./Clock.module.css";
 import { useState, useEffect } from "react";
 
-export default function Timer({ time, setIsRunning, type, setCurrentType }) {
+export default function Timer({
+  isPaused,
+  time,
+  setIsRunning,
+  type,
+  setCurrentType,
+}) {
   const { sessionLength, breakLength } = time;
   const [timeLocal, setTimeLocal] = useState(
     type === "Session" ? sessionLength : breakLength
@@ -17,7 +23,11 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTimeLocal((prevTime) => prevTime - 1);
+      if (!isPaused) {
+        setTimeLocal((prevTime) => {
+          return prevTime - 1;
+        });
+      }
 
       // When countdown reaches 30 seconds
       if (timeLocal === 30) {
@@ -26,7 +36,6 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
 
       // When countdown finishes
       if (timeLocal === 0) {
-        // TODO: Here play alarm sound
         alarm.play();
         setCurrentType(type === "Session" ? "Break" : "Session");
         setTimeLocal(type === "Session" ? breakLength : sessionLength);
@@ -37,7 +46,8 @@ export default function Timer({ time, setIsRunning, type, setCurrentType }) {
     return () => {
       clearInterval(intervalId);
     };
-  }, [timeLocal, setCurrentType, type, breakLength, sessionLength, alarm]);
+    // eslint-disable-next-line
+  }, [timeLocal, setCurrentType, type, breakLength, sessionLength, isPaused]);
 
   return <div className={timerClass}>{timeFormatted}</div>;
 }

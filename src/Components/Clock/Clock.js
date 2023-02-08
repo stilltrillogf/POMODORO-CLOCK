@@ -2,6 +2,7 @@ import styles from "./Clock.module.css";
 import Timer from "./Timer";
 
 export default function Clock({
+  isPaused,
   type,
   setCurrentType,
   time,
@@ -19,6 +20,7 @@ export default function Clock({
       <h2 className={styles.Title}>{type}</h2>
       {isRunning ? (
         <Timer
+          isPaused={isPaused}
           type={type}
           setCurrentType={setCurrentType}
           time={time}

@@ -10,6 +10,7 @@ function ClockApp() {
   const [sessionLength, setSessionLength] = useState(300);
   const [currentType, setCurrentType] = useState("Session");
   const [timerIsRunning, setTimerIsRunning] = useState(false);
+  const [timerIsPaused, setTimerIsPaused] = useState(false);
 
   // TODO: refactor into context+reducer
   const handleIncreaseBreak = () => {
@@ -35,7 +36,7 @@ function ClockApp() {
     setTimerIsRunning(true);
   };
   const handleTimerPause = function () {
-    // TODO: Probably need to pass this function to timer and then implement logic there
+    setTimerIsPaused(!timerIsPaused);
   };
   const handleTimerReset = function () {
     setTimerIsRunning(false);
@@ -54,6 +55,7 @@ function ClockApp() {
         sessionLength={sessionLength}
       />
       <Clock
+        isPaused={timerIsPaused}
         type={currentType}
         setCurrentType={setCurrentType}
         time={{ sessionLength: sessionLength, breakLength: breakLength }}
