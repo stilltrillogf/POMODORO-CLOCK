@@ -4,10 +4,12 @@ import { BUTTON_ICON_SIZE } from "../Utility/Config";
 import {
   TimerIsPausedContext,
   TimerIsRunningContext,
+  HandlePlayPauseResetContext,
 } from "../Utility/Context";
 import { useContext } from "react";
 
-function PlayPause(onPlay, onPause) {
+function PlayPause() {
+  const handlePlayPauseReset = useContext(HandlePlayPauseResetContext);
   const timerIsRunning = useContext(TimerIsRunningContext);
   const timerIsPaused = useContext(TimerIsPausedContext);
 
@@ -15,7 +17,8 @@ function PlayPause(onPlay, onPause) {
     if (timerIsPaused) {
       return (
         <FiPlay
-          onClick={onPlay}
+          onClick={handlePlayPauseReset}
+          data-action="Play"
           className={styles.Icon}
           size={BUTTON_ICON_SIZE}
         />
@@ -23,7 +26,8 @@ function PlayPause(onPlay, onPause) {
     } else {
       return (
         <FiPause
-          onClick={onPause}
+          onClick={handlePlayPauseReset}
+          data-action="Pause"
           className={styles.Icon}
           size={BUTTON_ICON_SIZE}
         />
@@ -32,7 +36,8 @@ function PlayPause(onPlay, onPause) {
   } else {
     return (
       <FiPlay
-        onClick={onPlay}
+        onClick={handlePlayPauseReset}
+        data-action="Play"
         className={styles.Icon}
         size={BUTTON_ICON_SIZE}
       />
@@ -40,12 +45,14 @@ function PlayPause(onPlay, onPause) {
   }
 }
 
-export default function Buttons({ onPlay, onPause, onReset }) {
+export default function Buttons() {
+  const handlePlayPauseReset = useContext(HandlePlayPauseResetContext);
   return (
     <div className={styles.Container}>
-      {PlayPause(onPlay, onPause)}
+      {PlayPause()}
       <FiRefreshCw
-        onClick={onReset}
+        onClick={handlePlayPauseReset}
+        data-action="Reset"
         className={styles.Icon}
         size={BUTTON_ICON_SIZE}
       />

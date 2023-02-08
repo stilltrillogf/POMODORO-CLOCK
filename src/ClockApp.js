@@ -11,6 +11,7 @@ import {
   TimerIsPausedContext,
   SetCurrentTypeContext,
   HandleChangeLengthContext,
+  HandlePlayPauseResetContext,
 } from "./Components/Utility/Context";
 import {
   DEFAULT_BREAK_LENGTH,
@@ -48,40 +49,42 @@ function ClockApp() {
     }
   };
 
-  const handleTimerPlay = function () {
-    if (timerIsPaused) setTimerIsPaused(false);
-    setTimerIsRunning(true);
-  };
-  const handleTimerPause = function () {
-    setTimerIsPaused(!timerIsPaused);
-  };
-  const handleTimerReset = function () {
-    setTimerIsRunning(false);
-    setCurrentType(DEFAULT_CURRENT_TYPE);
+  const handlePlayPauseReset = (e) => {
+    const action = e.target.closest("svg").dataset.action;
+    if (action === "Play") {
+      if (timerIsPaused) setTimerIsPaused(false);
+      setTimerIsRunning(true);
+    }
+    if (action === "Pause") {
+      setTimerIsPaused(!timerIsPaused);
+    }
+    if (action === "Reset") {
+      setTimerIsRunning(false);
+      setCurrentType(DEFAULT_CURRENT_TYPE);
+    }
   };
 
+  // TODO: Refactor into one context provider
   return (
     <BreakLengthContext.Provider value={breakLength}>
       <SessionLengthContext.Provider value={sessionLength}>
         <HandleChangeLengthContext.Provider value={handleChangeLength}>
-          <CurrentTypeContext.Provider value={currentType}>
-            <SetCurrentTypeContext.Provider value={setCurrentType}>
-              <TimerIsRunningContext.Provider value={timerIsRunning}>
-                <TimerIsPausedContext.Provider value={timerIsPaused}>
-                  <div className={styles.ClockApp}>
-                    <h1 className={styles.Title}>POMODORO CLOCK</h1>
-                    <ChooseLength />
-                    <Clock />
-                    <Buttons
-                      onPlay={handleTimerPlay}
-                      onPause={handleTimerPause}
-                      onReset={handleTimerReset}
-                    />
-                  </div>
-                </TimerIsPausedContext.Provider>
-              </TimerIsRunningContext.Provider>
-            </SetCurrentTypeContext.Provider>
-          </CurrentTypeContext.Provider>
+          <HandlePlayPauseResetContext.Provider value={handlePlayPauseReset}>
+            <CurrentTypeContext.Provider value={currentType}>
+              <SetCurrentTypeContext.Provider value={setCurrentType}>
+                <TimerIsRunningContext.Provider value={timerIsRunning}>
+                  <TimerIsPausedContext.Provider value={timerIsPaused}>
+                    <div className={styles.ClockApp}>
+                      <h1 className={styles.Title}>POMODORO CLOCK</h1>
+                      <ChooseLength />
+                      <Clock />
+                      <Buttons />
+                    </div>
+                  </TimerIsPausedContext.Provider>
+                </TimerIsRunningContext.Provider>
+              </SetCurrentTypeContext.Provider>
+            </CurrentTypeContext.Provider>
+          </HandlePlayPauseResetContext.Provider>
         </HandleChangeLengthContext.Provider>
       </SessionLengthContext.Provider>
     </BreakLengthContext.Provider>
