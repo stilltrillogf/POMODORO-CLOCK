@@ -6,3 +6,4 @@ export const CurrentTypeContext = createContext(null);
 export const SetCurrentTypeContext = createContext(null);
 export const TimerIsRunningContext = createContext(null);
 export const TimerIsPausedContext = createContext(null);
+export const HandleChangeLengthContext = createContext(null);

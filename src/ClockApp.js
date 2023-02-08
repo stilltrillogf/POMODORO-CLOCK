@@ -10,6 +10,7 @@ import {
   TimerIsRunningContext,
   TimerIsPausedContext,
   SetCurrentTypeContext,
+  HandleChangeLengthContext,
 } from "./Components/Utility/Context";
 import {
   DEFAULT_BREAK_LENGTH,
@@ -25,24 +26,26 @@ function ClockApp() {
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [timerIsPaused, setTimerIsPaused] = useState(false);
 
-  // TODO: refactor into context+reducer
-  const handleIncreaseBreak = () => {
+  const handleChangeLength = (e) => {
     if (timerIsRunning) return;
-    setBreakLength(breakLength + 60);
-  };
-  const handleDecreaseBreak = () => {
-    if (timerIsRunning) return;
-    if (breakLength / 60 === 1) return;
-    setBreakLength(breakLength - 60);
-  };
-  const handleIncreaseSession = () => {
-    if (timerIsRunning) return;
-    setSessionLength(sessionLength + 60);
-  };
-  const handleDecreaseSession = () => {
-    if (timerIsRunning) return;
-    if (sessionLength / 60 === 1) return;
-    setSessionLength(sessionLength - 60);
+    const type = e.target.closest("div").dataset.id;
+    const action = e.target.closest("svg").dataset.action;
+
+    if (type === "Session") {
+      if (action === "Increase") {
+        setSessionLength(sessionLength + 60);
+      } else {
+        if (sessionLength / 60 === 1) return;
+        setSessionLength(sessionLength - 60);
+      }
+    } else {
+      if (action === "Increase") {
+        setBreakLength(breakLength + 60);
+      } else {
+        if (breakLength / 60 === 1) return;
+        setBreakLength(breakLength - 60);
+      }
+    }
   };
 
   const handleTimerPlay = function () {
@@ -59,29 +62,26 @@ function ClockApp() {
   return (
     <BreakLengthContext.Provider value={breakLength}>
       <SessionLengthContext.Provider value={sessionLength}>
-        <CurrentTypeContext.Provider value={currentType}>
-          <SetCurrentTypeContext.Provider value={setCurrentType}>
-            <TimerIsRunningContext.Provider value={timerIsRunning}>
-              <TimerIsPausedContext.Provider value={timerIsPaused}>
-                <div className={styles.ClockApp}>
-                  <h1 className={styles.Title}>POMODORO CLOCK</h1>
-                  <ChooseLength
-                    handleIncreaseBreak={handleIncreaseBreak}
-                    handleDecreaseBreak={handleDecreaseBreak}
-                    handleIncreaseSession={handleIncreaseSession}
-                    handleDecreaseSession={handleDecreaseSession}
-                  />
-                  <Clock />
-                  <Buttons
-                    onPlay={handleTimerPlay}
-                    onPause={handleTimerPause}
-                    onReset={handleTimerReset}
-                  />
-                </div>
-              </TimerIsPausedContext.Provider>
-            </TimerIsRunningContext.Provider>
-          </SetCurrentTypeContext.Provider>
-        </CurrentTypeContext.Provider>
+        <HandleChangeLengthContext.Provider value={handleChangeLength}>
+          <CurrentTypeContext.Provider value={currentType}>
+            <SetCurrentTypeContext.Provider value={setCurrentType}>
+              <TimerIsRunningContext.Provider value={timerIsRunning}>
+                <TimerIsPausedContext.Provider value={timerIsPaused}>
+                  <div className={styles.ClockApp}>
+                    <h1 className={styles.Title}>POMODORO CLOCK</h1>
+                    <ChooseLength />
+                    <Clock />
+                    <Buttons
+                      onPlay={handleTimerPlay}
+                      onPause={handleTimerPause}
+                      onReset={handleTimerReset}
+                    />
+                  </div>
+                </TimerIsPausedContext.Provider>
+              </TimerIsRunningContext.Provider>
+            </SetCurrentTypeContext.Provider>
+          </CurrentTypeContext.Provider>
+        </HandleChangeLengthContext.Provider>
       </SessionLengthContext.Provider>
     </BreakLengthContext.Provider>
   );
