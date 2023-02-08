@@ -1,16 +1,22 @@
 import styles from "./Clock.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import {
+  BreakLengthContext,
+  SessionLengthContext,
+  CurrentTypeContext,
+  TimerIsPausedContext,
+  SetCurrentTypeContext,
+} from "../Context/Context";
 
-export default function Timer({
-  isPaused,
-  time,
-  setIsRunning,
-  type,
-  setCurrentType,
-}) {
-  const { sessionLength, breakLength } = time;
+export default function Timer() {
+  const breakLength = useContext(BreakLengthContext);
+  const sessionLength = useContext(SessionLengthContext);
+  const currentType = useContext(CurrentTypeContext);
+  const timerIsPaused = useContext(TimerIsPausedContext);
+  const setCurrentType = useContext(SetCurrentTypeContext);
+
   const [timeLocal, setTimeLocal] = useState(
-    type === "Session" ? sessionLength : breakLength
+    currentType === "Session" ? sessionLength : breakLength
   );
   const [timerClass, setTimerClass] = useState(styles.Timer);
   const alarm = new Audio(
@@ -23,7 +29,7 @@ export default function Timer({
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!isPaused) {
+      if (!timerIsPaused) {
         setTimeLocal((prevTime) => {
           return prevTime - 1;
         });
@@ -37,8 +43,8 @@ export default function Timer({
       // When countdown finishes
       if (timeLocal === 0) {
         alarm.play();
-        setCurrentType(type === "Session" ? "Break" : "Session");
-        setTimeLocal(type === "Session" ? breakLength : sessionLength);
+        setCurrentType(currentType === "Session" ? "Break" : "Session");
+        setTimeLocal(currentType === "Session" ? breakLength : sessionLength);
         setTimerClass(styles.Timer);
       }
     }, 1000);
@@ -47,7 +53,14 @@ export default function Timer({
       clearInterval(intervalId);
     };
     // eslint-disable-next-line
-  }, [timeLocal, setCurrentType, type, breakLength, sessionLength, isPaused]);
+  }, [
+    timeLocal,
+    setCurrentType,
+    currentType,
+    breakLength,
+    sessionLength,
+    timerIsPaused,
+  ]);
 
   return <div className={timerClass}>{timeFormatted}</div>;
 }

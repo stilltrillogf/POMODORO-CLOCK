@@ -1,14 +1,16 @@
 import styles from "./ChooseLength.module.css";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useContext } from "react";
+import { BreakLengthContext, SessionLengthContext } from "../Context/Context";
 
 export default function ChooseLength({
-  breakLength,
-  sessionLength,
   handleIncreaseBreak,
   handleDecreaseBreak,
   handleIncreaseSession,
   handleDecreaseSession,
 }) {
+  const breakLength = useContext(BreakLengthContext);
+  const sessionLength = useContext(SessionLengthContext);
   return (
     <div className={styles.Wrapper}>
       <div className={styles.ChooseLength}>

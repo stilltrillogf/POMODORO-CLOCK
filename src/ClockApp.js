@@ -3,6 +3,14 @@ import Clock from "./Components/Clock/Clock";
 import ChooseLength from "./Components/ChooseLength/ChooseLength";
 import Buttons from "./Components/Buttons/Buttons";
 import { useState } from "react";
+import {
+  BreakLengthContext,
+  SessionLengthContext,
+  CurrentTypeContext,
+  TimerIsRunningContext,
+  TimerIsPausedContext,
+  SetCurrentTypeContext,
+} from "./Components/Context/Context";
 
 function ClockApp() {
   // Length in seconds
@@ -44,30 +52,33 @@ function ClockApp() {
   };
 
   return (
-    <div className={styles.ClockApp}>
-      <h1 className={styles.Title}>POMODORO CLOCK</h1>
-      <ChooseLength
-        handleIncreaseBreak={handleIncreaseBreak}
-        handleDecreaseBreak={handleDecreaseBreak}
-        handleIncreaseSession={handleIncreaseSession}
-        handleDecreaseSession={handleDecreaseSession}
-        breakLength={breakLength}
-        sessionLength={sessionLength}
-      />
-      <Clock
-        isPaused={timerIsPaused}
-        type={currentType}
-        setCurrentType={setCurrentType}
-        time={{ sessionLength: sessionLength, breakLength: breakLength }}
-        isRunning={timerIsRunning}
-        setIsRunning={setTimerIsRunning}
-      />
-      <Buttons
-        onPlay={handleTimerPlay}
-        onPause={handleTimerPause}
-        onReset={handleTimerReset}
-      />
-    </div>
+    <BreakLengthContext.Provider value={breakLength}>
+      <SessionLengthContext.Provider value={sessionLength}>
+        <CurrentTypeContext.Provider value={currentType}>
+          <TimerIsRunningContext.Provider value={timerIsRunning}>
+            <TimerIsPausedContext.Provider value={timerIsPaused}>
+              <SetCurrentTypeContext.Provider value={setCurrentType}>
+                <div className={styles.ClockApp}>
+                  <h1 className={styles.Title}>POMODORO CLOCK</h1>
+                  <ChooseLength
+                    handleIncreaseBreak={handleIncreaseBreak}
+                    handleDecreaseBreak={handleDecreaseBreak}
+                    handleIncreaseSession={handleIncreaseSession}
+                    handleDecreaseSession={handleDecreaseSession}
+                  />
+                  <Clock />
+                  <Buttons
+                    onPlay={handleTimerPlay}
+                    onPause={handleTimerPause}
+                    onReset={handleTimerReset}
+                  />
+                </div>
+              </SetCurrentTypeContext.Provider>
+            </TimerIsPausedContext.Provider>
+          </TimerIsRunningContext.Provider>
+        </CurrentTypeContext.Provider>
+      </SessionLengthContext.Provider>
+    </BreakLengthContext.Provider>
   );
 }
 
