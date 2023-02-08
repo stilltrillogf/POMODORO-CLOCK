@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
+
 body {
+  font-family: "Roboto Mono", monospace;
   margin: 0;
   padding: 0;
   background: linear-gradient(180deg, #2a5470 25%, #4c4177 100%);

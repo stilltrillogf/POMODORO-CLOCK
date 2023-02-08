@@ -1,17 +1,33 @@
-.ClockBorder {
-  margin-top: 5rem;
-  padding: 10px;
-  border-radius: 20px;
-  background-image: linear-gradient(25deg, #2a5470 25%, #4c4177 100%);
-}
 /* TODO: background gradient inside Clock must be continuation of body gradient*/
 .Clock {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(180deg, #2a5470 25%, #4c4177 100%);
-  border-radius: 20px;
-  padding: 0.5rem 3rem;
+  color: #ffffff;
+  position: relative;
+  z-index: 0;
+  padding: 2rem;
+  margin-top: 5rem;
+}
+
+.Clock::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  padding: 2px;
+  border-radius: 25px;
+  background: linear-gradient(
+    25deg,
+    lightgrey 0%,
+    lightgrey 1%,
+    #e0e0e0 26%,
+    #efefef 48%,
+    #d9d9d9 75%,
+    #bcbcbc 100%
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
 }
 
 .Title {
