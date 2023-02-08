@@ -20,3 +20,7 @@
 .Timer {
   font-size: 125px;
 }
+
+.TimerRed {
+  color: red;
+}
