@@ -49,6 +49,7 @@ function ClockApp() {
   };
 
   const handleTimerPlay = function () {
+    if (timerIsPaused) setTimerIsPaused(false);
     setTimerIsRunning(true);
   };
   const handleTimerPause = function () {
