@@ -1,8 +1,8 @@
+import { useState } from "react";
 import styles from "./ClockApp.module.css";
 import Clock from "./Components/Clock/Clock";
 import ChooseLength from "./Components/ChooseLength/ChooseLength";
 import Buttons from "./Components/Buttons/Buttons";
-import { useState } from "react";
 import {
   BreakLengthContext,
   SessionLengthContext,
@@ -10,13 +10,18 @@ import {
   TimerIsRunningContext,
   TimerIsPausedContext,
   SetCurrentTypeContext,
-} from "./Components/Context/Context";
+} from "./Components/Utility/Context";
+import {
+  DEFAULT_BREAK_LENGTH,
+  DEFAULT_SESSION_LENGTH,
+  DEFAULT_CURRENT_TYPE,
+} from "./Components/Utility/Config";
 
 function ClockApp() {
   // Length in seconds
-  const [breakLength, setBreakLength] = useState(60);
-  const [sessionLength, setSessionLength] = useState(300);
-  const [currentType, setCurrentType] = useState("Session");
+  const [breakLength, setBreakLength] = useState(DEFAULT_BREAK_LENGTH);
+  const [sessionLength, setSessionLength] = useState(DEFAULT_SESSION_LENGTH);
+  const [currentType, setCurrentType] = useState(DEFAULT_CURRENT_TYPE);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [timerIsPaused, setTimerIsPaused] = useState(false);
 
@@ -48,16 +53,16 @@ function ClockApp() {
   };
   const handleTimerReset = function () {
     setTimerIsRunning(false);
-    setCurrentType("Session");
+    setCurrentType(DEFAULT_CURRENT_TYPE);
   };
 
   return (
     <BreakLengthContext.Provider value={breakLength}>
       <SessionLengthContext.Provider value={sessionLength}>
         <CurrentTypeContext.Provider value={currentType}>
-          <TimerIsRunningContext.Provider value={timerIsRunning}>
-            <TimerIsPausedContext.Provider value={timerIsPaused}>
-              <SetCurrentTypeContext.Provider value={setCurrentType}>
+          <SetCurrentTypeContext.Provider value={setCurrentType}>
+            <TimerIsRunningContext.Provider value={timerIsRunning}>
+              <TimerIsPausedContext.Provider value={timerIsPaused}>
                 <div className={styles.ClockApp}>
                   <h1 className={styles.Title}>POMODORO CLOCK</h1>
                   <ChooseLength
@@ -73,9 +78,9 @@ function ClockApp() {
                     onReset={handleTimerReset}
                   />
                 </div>
-              </SetCurrentTypeContext.Provider>
-            </TimerIsPausedContext.Provider>
-          </TimerIsRunningContext.Provider>
+              </TimerIsPausedContext.Provider>
+            </TimerIsRunningContext.Provider>
+          </SetCurrentTypeContext.Provider>
         </CurrentTypeContext.Provider>
       </SessionLengthContext.Provider>
     </BreakLengthContext.Provider>

@@ -1,7 +1,8 @@
+import { useContext } from "react";
 import styles from "./ChooseLength.module.css";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { useContext } from "react";
-import { BreakLengthContext, SessionLengthContext } from "../Context/Context";
+import { BreakLengthContext, SessionLengthContext } from "../Utility/Context";
+import { CHOOSE_LENGTH_ICON_SIZE } from "../Utility/Config";
 
 export default function ChooseLength({
   handleIncreaseBreak,
@@ -21,12 +22,12 @@ export default function ChooseLength({
             <FiChevronUp
               onClick={handleIncreaseBreak}
               className={styles.Icon}
-              size={35}
+              size={CHOOSE_LENGTH_ICON_SIZE}
             />
             <FiChevronDown
               onClick={handleDecreaseBreak}
               className={styles.Icon}
-              size={35}
+              size={CHOOSE_LENGTH_ICON_SIZE}
             />
           </div>
         </div>
@@ -39,12 +40,12 @@ export default function ChooseLength({
             <FiChevronUp
               onClick={handleIncreaseSession}
               className={styles.Icon}
-              size={35}
+              size={CHOOSE_LENGTH_ICON_SIZE}
             />
             <FiChevronDown
               onClick={handleDecreaseSession}
               className={styles.Icon}
-              size={35}
+              size={CHOOSE_LENGTH_ICON_SIZE}
             />
           </div>
         </div>

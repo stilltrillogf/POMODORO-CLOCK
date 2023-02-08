@@ -6,7 +6,8 @@ import {
   CurrentTypeContext,
   TimerIsPausedContext,
   SetCurrentTypeContext,
-} from "../Context/Context";
+} from "../Utility/Context";
+import { FINAL_COUNTDOWN_TIME, AUDIO_URL } from "../Utility/Config";
 
 export default function Timer() {
   const breakLength = useContext(BreakLengthContext);
@@ -19,9 +20,7 @@ export default function Timer() {
     currentType === "Session" ? sessionLength : breakLength
   );
   const [timerClass, setTimerClass] = useState(styles.Timer);
-  const alarm = new Audio(
-    "https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
-  );
+  const alarm = new Audio(AUDIO_URL);
 
   const timeFormatted = new Date(1000 * timeLocal)
     .toISOString()
@@ -36,7 +35,7 @@ export default function Timer() {
       }
 
       // When countdown reaches 30 seconds
-      if (timeLocal === 30) {
+      if (timeLocal === FINAL_COUNTDOWN_TIME) {
         setTimerClass(`${styles.Timer} ${styles.TimerRed}`);
       }
 

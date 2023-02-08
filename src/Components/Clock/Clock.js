@@ -1,11 +1,11 @@
 import { useContext } from "react";
+import styles from "./Clock.module.css";
 import {
   CurrentTypeContext,
   TimerIsRunningContext,
   SessionLengthContext,
   BreakLengthContext,
-} from "../Context/Context";
-import styles from "./Clock.module.css";
+} from "../Utility/Context";
 import Timer from "./Timer";
 
 export default function Clock() {
