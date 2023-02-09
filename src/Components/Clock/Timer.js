@@ -34,12 +34,10 @@ export default function Timer() {
         });
       }
 
-      // When countdown reaches 30 seconds
       if (timeLocal === FINAL_COUNTDOWN_TIME) {
         setTimerClass(`${styles.Timer} ${styles.TimerRed}`);
       }
 
-      // When countdown finishes
       if (timeLocal === 0) {
         alarm.play();
         setCurrentType(currentType === "Session" ? "Break" : "Session");

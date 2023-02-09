@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .ChooseLengthName {
@@ -29,4 +30,28 @@
 .Icon:hover {
   cursor: pointer;
   color: #bcbcbc;
+}
+
+@media screen and (max-width: 725px) {
+  .Wrapper {
+    gap: 4rem;
+  }
+  .ChooseLengthName {
+    font-size: 20px;
+  }
+  .ChooseLengthContent {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .Wrapper {
+    gap: 2rem;
+  }
+  .ChooseLengthName {
+    font-size: 15px;
+  }
+  .ChooseLengthContent {
+    font-size: 20px;
+  }
 }

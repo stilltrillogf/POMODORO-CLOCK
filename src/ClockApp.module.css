@@ -1,6 +1,7 @@
 .ClockApp {
   color: #ffffff;
-  height: 100vh;
+  margin: 2rem;
+  gap: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,4 +11,19 @@
 
 .Title {
   font-size: 75px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 725px) {
+  .Title {
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 505px) {
+  .Title {
+    font-size: 35px;
+    text-align: center;
+  }
 }
