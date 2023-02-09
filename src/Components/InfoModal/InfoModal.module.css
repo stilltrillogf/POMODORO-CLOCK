@@ -1,0 +1,19 @@
+.InfoIcon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.InfoIcon:hover {
+  cursor: pointer;
+  color: #bcbcbc;
+}
+
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+}

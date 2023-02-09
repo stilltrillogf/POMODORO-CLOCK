@@ -3,6 +3,7 @@ import styles from "./ClockApp.module.css";
 import Clock from "./Components/Clock/Clock";
 import ChooseLength from "./Components/ChooseLength/ChooseLength";
 import Buttons from "./Components/Buttons/Buttons";
+import InfoModal from "./Components/InfoModal/InfoModal";
 import Compose, {
   BreakLengthContext,
   SessionLengthContext,
@@ -12,6 +13,8 @@ import Compose, {
   SetCurrentTypeContext,
   HandleChangeLengthContext,
   HandlePlayPauseResetContext,
+  HandleInfoModalClickContext,
+  ModalIsOpenContext,
 } from "./Components/Utility/Context";
 import {
   DEFAULT_BREAK_LENGTH,
@@ -26,6 +29,7 @@ function ClockApp() {
   const [currentType, setCurrentType] = useState(DEFAULT_CURRENT_TYPE);
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [timerIsPaused, setTimerIsPaused] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleChangeLength = (e) => {
     if (timerIsRunning) return;
@@ -64,6 +68,10 @@ function ClockApp() {
     }
   };
 
+  const handleInfoModalClick = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
+
   return (
     <Compose
       items={[
@@ -75,9 +83,12 @@ function ClockApp() {
         [SetCurrentTypeContext, { value: setCurrentType }],
         [TimerIsRunningContext, { value: timerIsRunning }],
         [TimerIsPausedContext, { value: timerIsPaused }],
+        [HandleInfoModalClickContext, { value: handleInfoModalClick }],
+        [ModalIsOpenContext, { value: modalIsOpen }],
       ]}
     >
       <div className={styles.ClockApp}>
+        <InfoModal />
         <h1 className={styles.Title}>POMODORO CLOCK</h1>
         <ChooseLength />
         <Clock />
