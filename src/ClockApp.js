@@ -3,7 +3,7 @@ import styles from "./ClockApp.module.css";
 import Clock from "./Components/Clock/Clock";
 import ChooseLength from "./Components/ChooseLength/ChooseLength";
 import Buttons from "./Components/Buttons/Buttons";
-import {
+import Compose, {
   BreakLengthContext,
   SessionLengthContext,
   CurrentTypeContext,
@@ -64,30 +64,26 @@ function ClockApp() {
     }
   };
 
-  // TODO: Refactor into one context provider
   return (
-    <BreakLengthContext.Provider value={breakLength}>
-      <SessionLengthContext.Provider value={sessionLength}>
-        <HandleChangeLengthContext.Provider value={handleChangeLength}>
-          <HandlePlayPauseResetContext.Provider value={handlePlayPauseReset}>
-            <CurrentTypeContext.Provider value={currentType}>
-              <SetCurrentTypeContext.Provider value={setCurrentType}>
-                <TimerIsRunningContext.Provider value={timerIsRunning}>
-                  <TimerIsPausedContext.Provider value={timerIsPaused}>
-                    <div className={styles.ClockApp}>
-                      <h1 className={styles.Title}>POMODORO CLOCK</h1>
-                      <ChooseLength />
-                      <Clock />
-                      <Buttons />
-                    </div>
-                  </TimerIsPausedContext.Provider>
-                </TimerIsRunningContext.Provider>
-              </SetCurrentTypeContext.Provider>
-            </CurrentTypeContext.Provider>
-          </HandlePlayPauseResetContext.Provider>
-        </HandleChangeLengthContext.Provider>
-      </SessionLengthContext.Provider>
-    </BreakLengthContext.Provider>
+    <Compose
+      items={[
+        [BreakLengthContext, { value: breakLength }],
+        [SessionLengthContext, { value: sessionLength }],
+        [HandleChangeLengthContext, { value: handleChangeLength }],
+        [HandlePlayPauseResetContext, { value: handlePlayPauseReset }],
+        [CurrentTypeContext, { value: currentType }],
+        [SetCurrentTypeContext, { value: setCurrentType }],
+        [TimerIsRunningContext, { value: timerIsRunning }],
+        [TimerIsPausedContext, { value: timerIsPaused }],
+      ]}
+    >
+      <div className={styles.ClockApp}>
+        <h1 className={styles.Title}>POMODORO CLOCK</h1>
+        <ChooseLength />
+        <Clock />
+        <Buttons />
+      </div>
+    </Compose>
   );
 }
 
