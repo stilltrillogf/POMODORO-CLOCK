@@ -6,11 +6,22 @@ export default function ModalContent() {
       <h3 data-type="modalContent">How to use the app? It's really simple.</h3>
       <p data-type="modalContent">
         After you customized intervals length to your personal preferences,
-        start the timer by clicking the play button.
+        start the timer by clicking the <b data-type="modalContent">play</b>{" "}
+        icon.
       </p>
       <p data-type="modalContent">
         When the time of your session passes, you're going to hear an alarm
         sound, and the break timer will start to countdown.
+      </p>
+      <p>
+        You can stop the timer any time by clicking{" "}
+        <b data-type="modalContent">pause</b> icon that appears when the timer
+        is running.
+      </p>
+      <p>In order to change interval length again, you must reset the app.</p>
+      <p>
+        To reset the app, click the <b data-type="modalContent">refresh</b>{" "}
+        icon.
       </p>
       <h3 data-type="modalContent">Pomodoro technique</h3>
       <p data-type="modalContent">
