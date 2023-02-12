@@ -11,6 +11,7 @@ export const HandleChangeLengthContext = createContext(null);
 export const HandlePlayPauseResetContext = createContext(null);
 export const HandleInfoModalClickContext = createContext(null);
 export const ModalIsOpenContext = createContext(null);
+export const SetModalIsOpenContext = createContext(null);
 
 export default function Compose({ items, children }) {
   return items.reduceRight(

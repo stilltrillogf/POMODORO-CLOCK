@@ -1,6 +1,6 @@
 // Logic
-export const DEFAULT_BREAK_LENGTH = 60; // In seconds
-export const DEFAULT_SESSION_LENGTH = 300; //In seconds
+export const DEFAULT_BREAK_LENGTH = 300; // In seconds
+export const DEFAULT_SESSION_LENGTH = 1500; //In seconds
 export const DEFAULT_CURRENT_TYPE = "Session"; // Defines what displays first, Session or Break
 export const FINAL_COUNTDOWN_TIME = 30; // In seconds, defines at how many seconds left final countdown visual effects apply
 export const AUDIO_URL =

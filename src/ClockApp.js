@@ -15,6 +15,7 @@ import Compose, {
   HandlePlayPauseResetContext,
   HandleInfoModalClickContext,
   ModalIsOpenContext,
+  SetModalIsOpenContext,
 } from "./Components/Utility/Context";
 import {
   DEFAULT_BREAK_LENGTH,
@@ -85,6 +86,7 @@ function ClockApp() {
         [TimerIsPausedContext, { value: timerIsPaused }],
         [HandleInfoModalClickContext, { value: handleInfoModalClick }],
         [ModalIsOpenContext, { value: modalIsOpen }],
+        [SetModalIsOpenContext, { value: setModalIsOpen }],
       ]}
     >
       <div className={styles.ClockApp}>
