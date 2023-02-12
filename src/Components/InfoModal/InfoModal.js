@@ -1,5 +1,5 @@
 import styles from "./InfoModal.module.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 import {
   HandleInfoModalClickContext,
@@ -11,15 +11,18 @@ import ModalContent from "./ModalContent";
 function Modal() {
   const setModalIsOpen = useContext(SetModalIsOpenContext);
 
-  function handleModalClose(e) {
-    if (e.target.dataset.type === "closeModal") {
-      setModalIsOpen(false);
-    }
-    // Close modal when clicked outside of it
-    if (!e.target.dataset.type) {
-      setModalIsOpen(false);
-    }
-  }
+  const handleModalClose = useCallback(
+    (e) => {
+      if (e.target.dataset.type === "closeModal") {
+        setModalIsOpen(false);
+      }
+      // Close modal when clicked outside of it
+      if (!e.target.dataset.type) {
+        setModalIsOpen(false);
+      }
+    },
+    [setModalIsOpen]
+  );
 
   useEffect(() => {
     window.addEventListener("click", handleModalClose);
