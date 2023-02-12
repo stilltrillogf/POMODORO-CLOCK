@@ -54,3 +54,26 @@ p {
   padding: 0;
   margin: 0;
 }
+
+a {
+  background: -webkit-linear-gradient(#2a5470 25%, #4c4177 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+.iconHoverParent {
+  position: relative;
+}
+
+.iconHover {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 10;
+  background: linear-gradient(180deg, #2a5470 25%, #4c4177 100%);
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+}
